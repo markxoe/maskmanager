@@ -1,3 +1,4 @@
+/// <reference types="@capacitor/splash-screen" />
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
@@ -5,6 +6,11 @@ const config: CapacitorConfig = {
   appName: "Mask manager",
   webDir: "build",
   bundledWebRuntime: false,
+  plugins: {
+    SplashScreen: {
+      launchAutoHide: false,
+    },
+  },
 };
 
 export default config;

@@ -5,6 +5,7 @@ import produce from "immer";
 import { loadState, saveState } from "./persistance";
 import { ActionSetState } from "./Actions";
 import { StatusBar, Style } from "@capacitor/status-bar";
+import { SplashScreen } from "@capacitor/splash-screen";
 import { isPlatform } from "@ionic/react";
 
 export const AppContext = React.createContext<Context>({} as Context);
@@ -79,6 +80,7 @@ export const AppContextProvider: React.FC = (props) => {
     loadState().then((newState) => {
       dispatch(ActionSetState(newState));
       setLoaded(true);
+      SplashScreen.hide();
     });
   }, []);
 
