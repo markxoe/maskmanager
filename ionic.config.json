@@ -1,0 +1,7 @@
+{
+  "name": "maskmanager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
