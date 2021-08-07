@@ -3,9 +3,11 @@ import {
   IonButton,
   IonButtons,
   IonCard,
+  IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonChip,
   IonContent,
   IonDatetime,
   IonFab,
@@ -14,11 +16,9 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
-  IonList,
   IonListHeader,
   IonModal,
   IonPage,
-  IonText,
   IonTitle,
   IonToolbar,
   useIonToast,
@@ -26,7 +26,12 @@ import {
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../hooks/AppContext";
-import { findMask, generateWearId, sortWears } from "../functions/Masks";
+import {
+  findMask,
+  generateWearId,
+  isMaskValid,
+  sortWears,
+} from "../functions/Masks";
 import { Mask } from "../types/Mask";
 import IonPadding from "../components/IonPadding";
 import { add, save, trashBin } from "ionicons/icons";
@@ -44,17 +49,25 @@ const EditWearsPage: React.FC = () => {
   const [newWearModalOpen, setNewWearModalOpen] = useState(false);
 
   const [mask, setMask] = useState<Mask | undefined>(undefined);
+  const [maskNotValid, setMaskNotValid] = useState<boolean>(false);
 
   useEffect(() => {
     setMask(findMask(state.masks, id));
   }, [id, state.masks]);
+
+  useEffect(() => {
+    setMaskNotValid(mask ? !isMaskValid(mask) : false);
+  }, [mask]);
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonBackButton
+              disabled={mask ? !isMaskValid(mask) : false}
+              defaultHref="/"
+            />
           </IonButtons>
           <IonTitle>Tragungen von {id} ändern</IonTitle>
         </IonToolbar>
@@ -69,21 +82,30 @@ const EditWearsPage: React.FC = () => {
                   {new Date(mask.auspackungszeit).toLocaleString()}
                 </IonCardSubtitle>
               </IonCardHeader>
+              {maskNotValid ? (
+                <IonCardContent>
+                  <IonChip color="danger">Einträge überlappen sich</IonChip>
+                </IonCardContent>
+              ) : (
+                ""
+              )}
             </IonCard>
             <IonListHeader>Tragungen</IonListHeader>
-            <IonList>
-              {sortWears(mask.wears).map((wear) => (
-                <IonItem key={wear.id + wear.startTime + wear.endTime}>
-                  <IonLabel>
+            {sortWears(mask.wears).map((wear) => (
+              <IonCard key={wear.id + wear.startTime + wear.endTime}>
+                <IonCardHeader>
+                  <IonCardSubtitle>
                     Von {new Date(wear.startTime).toLocaleString()}
-                  </IonLabel>
-                  <IonLabel>
-                    {wear.endTime ? (
-                      `Bis ${new Date(wear.endTime).toLocaleString()}`
-                    ) : (
-                      <IonText color="danger">Jetzt</IonText>
-                    )}
-                  </IonLabel>
+                  </IonCardSubtitle>
+
+                  <IonCardSubtitle>
+                    Bis{" "}
+                    {wear.endTime
+                      ? new Date(wear.endTime).toLocaleString()
+                      : "Jetzt"}
+                  </IonCardSubtitle>
+                </IonCardHeader>
+                <IonCardContent>
                   <IonButton
                     slot="end"
                     fill="clear"
@@ -91,9 +113,9 @@ const EditWearsPage: React.FC = () => {
                     onClick={() => dispatch(ActionDeleteWear(mask, wear))}>
                     <IonIcon slot="icon-only" icon={trashBin} />
                   </IonButton>
-                </IonItem>
-              ))}
-            </IonList>
+                </IonCardContent>
+              </IonCard>
+            ))}
 
             <IonFab horizontal="end" vertical="bottom" slot="fixed">
               <IonFabButton onClick={() => setNewWearModalOpen(true)}>

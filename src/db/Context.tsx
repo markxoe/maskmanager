@@ -13,11 +13,13 @@ const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionTypes.ADD_MASK:
       return { ...state, masks: [...state.masks, action.payload] };
+
     case ActionTypes.ADD_WEAR:
       return produce(state, (draft) => {
         const mask = draft.masks.find((i) => i.id === action.payload.maskid);
         if (mask) mask.wears = [...mask.wears, action.payload.wear];
       });
+
     case ActionTypes.STOP_CURRENT_WEAR:
       return produce(state, (draft) => {
         const mask = draft.masks.find((i) => i.id === action.payload.id);
@@ -26,6 +28,7 @@ const reducer = (state: State, action: Action): State => {
           if (wear) wear.endTime = Date.now();
         }
       });
+
     case ActionTypes.WEAR_END_TIME:
     case ActionTypes.WEAR_START_TIME:
       return produce(state, (draft) => {

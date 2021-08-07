@@ -56,16 +56,11 @@ export const getWearDuration = (
 export const getMaskWearDuration = (
   mask: Mask,
   includeCurrent: boolean = false
-) => combineArray(mask.wears.map((a) => getWearDuration(a, includeCurrent)));
+) => addNumberArray(mask.wears.map((a) => getWearDuration(a, includeCurrent)));
 
-export const combineArray = (
-  array: number[],
-  fun: (a: number, b: number) => number = (a, b) => a + b,
-  defaultNumber: number = 0
-) => {
+export const addNumberArray = (array: number[]) => {
   let out = 0;
   array.forEach((a) => {
-    console.log("eiuz", a);
     out += a;
   });
   return out;
@@ -113,3 +108,17 @@ export const sortWears = (
         return vb - va;
     }
   });
+
+export const isMaskValid = (mask: Mask) => {
+  let notValid = false;
+  const wears = sortWears(mask.wears, "startTime", "ASC");
+  for (let i = 0; i < wears.length - 1; i++) {
+    const current = wears[i];
+    const next = wears[i + 1];
+
+    if ((current.endTime ?? 0) > next.startTime) {
+      notValid = true;
+    }
+  }
+  return !notValid;
+};
