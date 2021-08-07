@@ -1,11 +1,13 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { getCurrentWear } from "../functions/Masks";
 import { Context, State, Action, ActionTypes } from "./Types";
 import produce from "immer";
+import { loadState, saveState } from "./persistance";
+import { ActionSetState } from "./Actions";
 
 export const AppContext = React.createContext<Context>({} as Context);
 
-const initialState: State = {
+export const initialState: State = {
   masks: [],
 };
 
@@ -56,6 +58,9 @@ const reducer = (state: State, action: Action): State => {
         draft.masks = draft.masks.filter((i) => i.id !== action.payload.id);
       });
 
+    case ActionTypes.SET_STATE:
+      return action.payload;
+
     default:
       return state;
   }
@@ -64,6 +69,23 @@ const reducer = (state: State, action: Action): State => {
 export const AppContextProvider: React.FC = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const context: Context = { state, dispatch };
+  const [lastSave, setLastSave] = useState<number>(Date.now());
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    loadState().then((newState) => {
+      dispatch(ActionSetState(newState));
+      setLoaded(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (lastSave + 1000 < Date.now() && loaded) {
+      saveState(state);
+      setLastSave(Date.now());
+    }
+  }, [state, loaded, lastSave]);
+
   return (
     <AppContext.Provider value={context}>{props.children}</AppContext.Provider>
   );

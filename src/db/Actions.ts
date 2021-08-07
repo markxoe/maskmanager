@@ -47,3 +47,8 @@ export const ActionDeleteMask = (mask: Mask): Action => ({
   type: ActionTypes.DELETE_MASK,
   payload: mask,
 });
+
+export const ActionSetState = (state: State): Action => ({
+  type: ActionTypes.SET_STATE,
+  payload: state,
+});

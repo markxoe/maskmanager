@@ -14,6 +14,7 @@ export enum ActionTypes {
   WEAR_END_TIME,
   DELETE_WEAR,
   DELETE_MASK,
+  SET_STATE,
 }
 
 export interface Action {
