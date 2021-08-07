@@ -3,6 +3,7 @@ import { Mask } from "../types/Mask";
 
 export interface State {
   masks: Mask[];
+  darkmode: boolean;
 }
 
 export enum ActionTypes {

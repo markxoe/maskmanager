@@ -9,6 +9,7 @@ export const AppContext = React.createContext<Context>({} as Context);
 
 export const initialState: State = {
   masks: [],
+  darkmode: true,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -85,6 +86,12 @@ export const AppContextProvider: React.FC = (props) => {
       setLastSave(Date.now());
     }
   }, [state, loaded, lastSave]);
+
+  useEffect(() => {
+    const body = document.body;
+    if (state.darkmode) body.classList.add("dark");
+    else body.classList.remove("dark");
+  }, [state.darkmode]);
 
   return (
     <AppContext.Provider value={context}>{props.children}</AppContext.Provider>
