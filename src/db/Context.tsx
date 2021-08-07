@@ -4,6 +4,8 @@ import { Context, State, Action, ActionTypes } from "./Types";
 import produce from "immer";
 import { loadState, saveState } from "./persistance";
 import { ActionSetState } from "./Actions";
+import { StatusBar, Style } from "@capacitor/status-bar";
+import { isPlatform } from "@ionic/react";
 
 export const AppContext = React.createContext<Context>({} as Context);
 
@@ -91,6 +93,10 @@ export const AppContextProvider: React.FC = (props) => {
     const body = document.body;
     if (state.darkmode) body.classList.add("dark");
     else body.classList.remove("dark");
+    if (isPlatform("hybrid"))
+      StatusBar.setStyle({
+        style: state.darkmode ? Style.Dark : Style.Light,
+      });
   }, [state.darkmode]);
 
   return (
