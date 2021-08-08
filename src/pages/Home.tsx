@@ -64,17 +64,20 @@ const Home: React.FC = () => {
               </IonCardSubtitle>
             </IonCardHeader>
             <IonCardContent>
-              {isCurrentlyWearing(i)
-                ? `Wird getragen seit ${convertMStoHHMMSS(
-                    time - (getCurrentWear(i)?.startTime ?? 0)
-                  )}`
-                : getLatestWear(i)
-                ? `Zuletzt getragen bis ${new Date(
-                    getLatestWear(i).endTime ?? 0
-                  ).toLocaleString()}`
-                : "Noch nicht getragen"}
-
               <IonGrid>
+                <IonRow>
+                  <IonCol>
+                    {isCurrentlyWearing(i)
+                      ? `Wird getragen seit ${convertMStoHHMMSS(
+                          time - (getCurrentWear(i)?.startTime ?? 0)
+                        )}`
+                      : getLatestWear(i)
+                      ? `Zuletzt getragen bis ${new Date(
+                          getLatestWear(i).endTime ?? 0
+                        ).toLocaleString()}`
+                      : "Noch nicht getragen"}
+                  </IonCol>
+                </IonRow>
                 <IonRow>
                   <IonCol>
                     {isCurrentlyWearing(i) ? (
