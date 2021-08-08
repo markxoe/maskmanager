@@ -60,7 +60,8 @@ const Home: React.FC = () => {
               <IonCardTitle>{i.id}</IonCardTitle>
               <IonCardSubtitle>
                 {new Date(i.auspackungszeit).toLocaleString()} |{" "}
-                {convertMStoHHMMSS(getMaskWearDuration(i, true))}
+                {convertMStoHHMMSS(getMaskWearDuration(i, true))} |{" "}
+                {i.wears.length} mal Getragen
               </IonCardSubtitle>
             </IonCardHeader>
             <IonCardContent>
@@ -129,11 +130,20 @@ const Home: React.FC = () => {
           </IonCard>
         ))}
 
-        <IonCard routerLink="/mask/which" button>
+        <IonCard
+          routerLink="/mask/which"
+          button
+          hidden={state.masks.length === 0}>
           <IonCardHeader>
             <IonCardTitle>
               Welche Maske soll ich als nächstes Tragen?
             </IonCardTitle>
+          </IonCardHeader>
+        </IonCard>
+
+        <IonCard routerLink="/mask/add" button color="primary">
+          <IonCardHeader>
+            <IonCardTitle>Neue Maske hinzufügen</IonCardTitle>
           </IonCardHeader>
         </IonCard>
 
