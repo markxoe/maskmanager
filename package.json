@@ -23,6 +23,7 @@
     "@types/react-router-dom": "^5.1.7",
     "immer": "^9.0.5",
     "ionicons": "^5.4.0",
+    "pwacompat": "^2.0.17",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
