@@ -12,3 +12,7 @@ export const convertMStoHHMMSS = (time: number) => {
     seconds.toString().padStart(2, "0")
   );
 };
+
+export const howManyDaysAgo = (time: number, now: number = Date.now()) => {
+  return (now - time) / 1000 / 60 / 60 / 24;
+};

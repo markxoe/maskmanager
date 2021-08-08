@@ -25,6 +25,7 @@ import { AppContextProvider } from "./db/Context";
 import AddMaskPage from "./pages/AddMask";
 import EditWearsPage from "./pages/EditWears";
 import WhichShouldIWearPage from "./pages/whichShouldIWear";
+import RotationsVerfahrenPage from "./pages/Rotationsverfahren";
 
 const App: React.FC = () => (
   <AppContextProvider>
@@ -45,6 +46,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/mask/which">
             <WhichShouldIWearPage />
+          </Route>
+          <Route exact path="/mask/which-rotation">
+            <RotationsVerfahrenPage />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

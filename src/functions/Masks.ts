@@ -148,3 +148,15 @@ export const calculateSenseofWearing = (mask: Mask) => {
 
   return oldnessPoints + wearPoints + wearCountPoints;
 };
+
+export const getColorForRotation = (daysago: number) => {
+  if (daysago < 5) {
+    return "danger";
+  } else if (daysago >= 5 && daysago < 7) {
+    return "warning";
+  } else if (daysago >= 7) {
+    return "success";
+  } else {
+    return "";
+  }
+};

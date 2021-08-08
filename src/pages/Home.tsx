@@ -131,6 +131,18 @@ const Home: React.FC = () => {
         ))}
 
         <IonCard
+          routerLink="/mask/which-rotation"
+          button
+          hidden={state.masks.length === 0}>
+          <IonCardHeader>
+            <IonCardTitle>Rotationsverfahrensassistent</IonCardTitle>
+            <IonCardSubtitle>
+              Hilft dir mit dem Rotationsverfahren
+            </IonCardSubtitle>
+          </IonCardHeader>
+        </IonCard>
+
+        <IonCard
           routerLink="/mask/which"
           button
           hidden={state.masks.length === 0}>
@@ -138,6 +150,10 @@ const Home: React.FC = () => {
             <IonCardTitle>
               Welche Maske soll ich als nächstes Tragen?
             </IonCardTitle>
+            <IonCardSubtitle>
+              Hilft dir bei der Auswahl der Maske die du als nächstes tragen
+              solltest
+            </IonCardSubtitle>
           </IonCardHeader>
         </IonCard>
 
