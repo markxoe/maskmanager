@@ -122,3 +122,29 @@ export const isMaskValid = (mask: Mask) => {
   }
   return !notValid;
 };
+
+//TODO: Better Calculation
+
+export const calculateSenseofWearing = (mask: Mask) => {
+  if (isCurrentlyWearing(mask)) {
+    // If you're wearing your mask right now, it's pointless to wear it next
+    return 0;
+  }
+  const latestWear = getLatestWear(mask);
+
+  const oldnessPoints = Math.min(
+    latestWear && latestWear.endTime
+      ? ((Date.now() - latestWear.endTime) / 1000 / 60 / 60 / 24 / 7) * 200
+      : 200,
+    200
+  ); // Last Wear (If 7 days old -> 200 points)
+
+  const wearCountPoints = (5 - mask.wears.length) * 10; // 50 Points if not worn at all, 0 if worn 5 times
+  const wearLength = getMaskWearDuration(mask) / 1000 / 60 / 60;
+  const wearPoints =
+    (1 / Math.pow(wearLength + 7, 2)) * (100 / (1 / Math.pow(7, 2))); // 100 Points for not wearing it at all. 25 for 7h ...
+
+  // In Excel: 1/(D10+5)^2*(100/(1/(5^2)))
+
+  return oldnessPoints + wearPoints + wearCountPoints;
+};

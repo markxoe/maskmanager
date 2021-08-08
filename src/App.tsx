@@ -24,6 +24,7 @@ import "./theme/variables.css";
 import { AppContextProvider } from "./db/Context";
 import AddMaskPage from "./pages/AddMask";
 import EditWearsPage from "./pages/EditWears";
+import WhichShouldIWearPage from "./pages/whichShouldIWear";
 
 const App: React.FC = () => (
   <AppContextProvider>
@@ -41,6 +42,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/mask/:id/wears">
             <EditWearsPage />
+          </Route>
+          <Route exact path="/mask/which">
+            <WhichShouldIWearPage />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

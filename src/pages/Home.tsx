@@ -126,6 +126,14 @@ const Home: React.FC = () => {
           </IonCard>
         ))}
 
+        <IonCard routerLink="/mask/which" button>
+          <IonCardHeader>
+            <IonCardTitle>
+              Welche Maske soll ich als nächstes Tragen?
+            </IonCardTitle>
+          </IonCardHeader>
+        </IonCard>
+
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton routerLink="/mask/add">
             <IonIcon icon={add} />
