@@ -61,7 +61,7 @@ const EditWearsPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton
@@ -72,7 +72,7 @@ const EditWearsPage: React.FC = () => {
           <IonTitle>Tragungen von {id} ändern</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent fullscreen>
         {mask ? (
           <>
             <IonCard>

@@ -42,7 +42,7 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonTitle>Mask Manager</IonTitle>
         </IonToolbar>

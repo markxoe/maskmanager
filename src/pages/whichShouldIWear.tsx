@@ -26,7 +26,7 @@ const WhichShouldIWearPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />
@@ -34,7 +34,7 @@ const WhichShouldIWearPage: React.FC = () => {
           <IonTitle>Welche Maske soll ich tragen?</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent fullscreen>
         <IonCard>
           <IonCardHeader>
             <IonCardTitle>Wie wird das Berechnet?</IonCardTitle>

@@ -32,7 +32,7 @@ const AddMaskPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />
@@ -40,7 +40,7 @@ const AddMaskPage: React.FC = () => {
           <IonTitle>Maske hinzufügen</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent fullscreen>
         <IonSlides pager={true}>
           <IonSlide>
             <IonPadding>
