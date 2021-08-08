@@ -121,7 +121,7 @@ const Home: React.FC = () => {
                       routerLink={`/mask/${i.id}/wears`}
                       fill="solid"
                       color="medium">
-                      Bisherige Tragen ändern
+                      Benutzungen editieren
                     </IonButton>
                   </IonCol>
                 </IonRow>

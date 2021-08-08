@@ -69,7 +69,7 @@ const EditWearsPage: React.FC = () => {
               defaultHref="/"
             />
           </IonButtons>
-          <IonTitle>Tragungen von {id} ändern</IonTitle>
+          <IonTitle>Benutzungen von {id} ändern</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -90,7 +90,7 @@ const EditWearsPage: React.FC = () => {
                 ""
               )}
             </IonCard>
-            <IonListHeader>Tragungen</IonListHeader>
+            <IonListHeader>Benutzungen</IonListHeader>
             {sortWears(mask.wears).map((wear) => (
               <IonCard key={wear.id + wear.startTime + wear.endTime}>
                 <IonCardHeader>
