@@ -11,7 +11,7 @@ import {
   IonToolbar,
   useIonViewWillEnter,
 } from "@ionic/react";
-import React, { useContext } from "react";
+import React, { Ref, useContext, useRef } from "react";
 import { useHistory } from "react-router";
 import IonPadding from "../components/IonPadding";
 import { ActionAddMask } from "../db/Actions";
@@ -23,6 +23,7 @@ import "./AddMask.css";
 const AddMaskPage: React.FC = () => {
   const { dispatch } = useContext(AppContext);
   const history = useHistory();
+  const swiper = useRef<HTMLIonSlidesElement>();
 
   const [newID, setNewID] = React.useState("");
 
@@ -41,10 +42,18 @@ const AddMaskPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonSlides pager={true}>
+        <IonSlides
+          ref={swiper as Ref<HTMLIonSlidesElement>}
+          options={{
+            pagination: { el: ".swiper-pagination", type: "progressbar" },
+          }}
+          pager={true}>
           <IonSlide>
             <IonPadding>
               <h1>Schritt 1: Maske auspacken</h1>
+              <IonButton onClick={() => swiper.current?.slideNext()}>
+                Weiter
+              </IonButton>
             </IonPadding>
           </IonSlide>
           <IonSlide>
@@ -59,6 +68,9 @@ const AddMaskPage: React.FC = () => {
                   Regenerieren
                 </IonButton>
               </h4>
+              <IonButton onClick={() => swiper.current?.slideNext()}>
+                Weiter
+              </IonButton>
             </IonPadding>
           </IonSlide>
           <IonSlide>
@@ -73,9 +85,9 @@ const AddMaskPage: React.FC = () => {
                       wears: [],
                     })
                   );
-                  history.push("/");
+                  history.goBack();
                 }}>
-                Fertig
+                Speichern
               </IonButton>
             </IonPadding>
           </IonSlide>
