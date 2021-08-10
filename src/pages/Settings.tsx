@@ -13,7 +13,6 @@ import {
   IonTextarea,
   IonTitle,
   IonToolbar,
-  useIonToast,
 } from "@ionic/react";
 import { save, trashBin } from "ionicons/icons";
 import React, { useState } from "react";
@@ -23,12 +22,13 @@ import { useAppContext } from "../hooks/AppContext";
 import { Share } from "@capacitor/share";
 import { Clipboard } from "@capacitor/clipboard";
 import { serializeState } from "../db/persistance";
+import { useIonToastAdvanced } from "../hooks/useIonToastAdvanced";
 
 const SettingsPage: React.FC = () => {
   const { dispatch, state } = useAppContext();
   const [openImport, setOpenImport] = useState(false);
   const [importInput, setImportInput] = useState("");
-  const [showToast] = useIonToast();
+  const showToast = useIonToastAdvanced();
 
   return (
     <IonPage>
@@ -58,7 +58,9 @@ const SettingsPage: React.FC = () => {
                 dialogTitle: "Deine Daten",
               }).catch(() => {
                 Clipboard.write({ string: serializeState(state) });
-                showToast("Daten sind jetzt in deiner Zwischenablage", 5000);
+                showToast("Daten sind jetzt in deiner Zwischenablage", 5000, {
+                  translucent: true,
+                });
               })
             }>
             Export
@@ -81,7 +83,9 @@ const SettingsPage: React.FC = () => {
                       showToast("Daten nicht valide", 5000);
                     } else {
                       dispatch(ActionSetState(data));
-                      showToast("Daten importiert", 5000);
+                      showToast("Daten importiert", 5000, {
+                        translucent: true,
+                      });
                       setOpenImport(false);
                     }
                   }}>

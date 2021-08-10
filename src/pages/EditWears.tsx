@@ -21,7 +21,6 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  useIonToast,
 } from "@ionic/react";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -36,11 +35,12 @@ import { Mask } from "../types/Mask";
 import IonPadding from "../components/IonPadding";
 import { add, save, trashBin } from "ionicons/icons";
 import { ActionAddWear, ActionDeleteWear } from "../db/Actions";
+import { useIonToastAdvanced } from "../hooks/useIonToastAdvanced";
 
 const EditWearsPage: React.FC = () => {
   const { state, dispatch } = useAppContext();
   const { id } = useParams<{ id: string }>();
-  const [toastOpen] = useIonToast();
+  const showToast = useIonToastAdvanced();
 
   const [newWearStart, setNewWearStart] = useState(
     Date.now() - 1000 * 60 * 60 * 2
@@ -139,7 +139,7 @@ const EditWearsPage: React.FC = () => {
                   <IonIcon icon={trashBin} />
                 </IonButton>
               </IonButtons>
-              <IonTitle>Tragung hinzufügen</IonTitle>
+              <IonTitle>Benutzung hinzufügen</IonTitle>
               <IonButtons slot="end">
                 <IonButton
                   onClick={() => {
@@ -153,7 +153,7 @@ const EditWearsPage: React.FC = () => {
                       );
                       setNewWearModalOpen(false);
                     } else {
-                      toastOpen("Action Illegal", 5000);
+                      showToast("Action Illegal", 5000, { translucent: true });
                       setNewWearModalOpen(false);
                     }
                   }}>
