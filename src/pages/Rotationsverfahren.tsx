@@ -69,37 +69,50 @@ const RotationsVerfahrenPage: React.FC = () => {
               Falls eine Maske öfters als 5 mal getragen wurde, wird dies
               ebenfalls Markiert
             </p>
+            <p>Sortiert wird nach dem letzten Tragen, die älteste ganz oben</p>
           </IonCardContent>
         </IonCard>
         {state.masks
-          .filter((i) => getLatestWear(i)?.endTime !== undefined)
+          .map((mask) => ({
+            mask,
+            latestWearEnd: getLatestWear(mask)?.endTime,
+          }))
           .sort(
             (amask, bmask) =>
-              getLatestWear(amask).endTime! - getLatestWear(bmask).endTime!
+              (amask.latestWearEnd ?? 0) - (bmask.latestWearEnd ?? 0)
           )
-          .map((mask) => (
-            <IonCard>
-              <IonCardHeader>
-                <IonCardTitle>
-                  {mask.id}: Vor{" "}
-                  <IonText
-                    color={getColorForRotation(
-                      howManyDaysAgo(getLatestWear(mask).endTime!)
-                    )}>
-                    {howManyDaysAgo(getLatestWear(mask).endTime!).toFixed(2)}
-                  </IonText>{" "}
-                  Tagen getragen
-                </IonCardTitle>
-                <IonCardSubtitle>
-                  {new Date(mask.auspackungszeit).toLocaleString()} |{" "}
-                  {convertMStoHHMMSS(getMaskWearDuration(mask, true))} |{" "}
-                  <IonText color={mask.wears.length >= 5 ? "danger" : ""}>
-                    {mask.wears.length} mal Getragen
-                  </IonText>
-                </IonCardSubtitle>
-              </IonCardHeader>
-            </IonCard>
-          ))}
+          .map(({ mask, latestWearEnd }) => {
+            return (
+              <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>
+                    {mask.id}:{" "}
+                    {latestWearEnd !== undefined ? (
+                      <>
+                        Vor{" "}
+                        <IonText
+                          color={getColorForRotation(
+                            howManyDaysAgo(latestWearEnd)
+                          )}>
+                          {howManyDaysAgo(latestWearEnd).toFixed(2)}
+                        </IonText>{" "}
+                        Tagen getragen
+                      </>
+                    ) : (
+                      <IonText color="success">Noch nicht getragen</IonText>
+                    )}
+                  </IonCardTitle>
+                  <IonCardSubtitle>
+                    {new Date(mask.auspackungszeit).toLocaleString()} |{" "}
+                    {convertMStoHHMMSS(getMaskWearDuration(mask, true))} |{" "}
+                    <IonText color={mask.wears.length >= 5 ? "danger" : ""}>
+                      {mask.wears.length} mal Getragen
+                    </IonText>
+                  </IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            );
+          })}
       </IonContent>
     </IonPage>
   );

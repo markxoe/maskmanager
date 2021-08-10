@@ -54,7 +54,7 @@ const AddMaskPage: React.FC = () => {
                 Beschrifte deine Maske mit <code>{newID}</code>
               </h2>
               <h4>
-                Ne, der Code gefällt mit nicht:
+                Ne, der Code gefällt mit nicht:{" "}
                 <IonButton onClick={() => setNewID(generateMaskId())}>
                   Regenerieren
                 </IonButton>
