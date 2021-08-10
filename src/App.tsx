@@ -26,6 +26,7 @@ import AddMaskPage from "./pages/AddMask";
 import EditWearsPage from "./pages/EditWears";
 import WhichShouldIWearPage from "./pages/whichShouldIWear";
 import RotationsVerfahrenPage from "./pages/Rotationsverfahren";
+import SettingsPage from "./pages/Settings";
 
 const App: React.FC = () => (
   <AppContextProvider>
@@ -49,6 +50,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/mask/which-rotation">
             <RotationsVerfahrenPage />
+          </Route>
+          <Route exact path="/settings">
+            <SettingsPage />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

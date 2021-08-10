@@ -85,7 +85,7 @@ export const AppContextProvider: React.FC = (props) => {
   }, []);
 
   useEffect(() => {
-    if (lastSave + 1000 < Date.now() && loaded) {
+    if (lastSave + 100 < Date.now() && loaded) {
       saveState(state);
       setLastSave(Date.now());
     }

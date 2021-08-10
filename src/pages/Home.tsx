@@ -1,5 +1,6 @@
 import {
   IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -18,7 +19,7 @@ import {
   IonToolbar,
   useIonAlert,
 } from "@ionic/react";
-import { add } from "ionicons/icons";
+import { add, settings } from "ionicons/icons";
 import {
   ActionAddWear,
   ActionDeleteMask,
@@ -45,12 +46,22 @@ const Home: React.FC = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonTitle>Mask Manager</IonTitle>
+          <IonButtons collapse slot="end">
+            <IonButton routerLink="/settings">
+              <IonIcon icon={settings} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Mask Manager</IonTitle>
+            <IonButtons slot="end">
+              <IonButton routerLink="/settings">
+                <IonIcon icon={settings} />
+              </IonButton>
+            </IonButtons>
           </IonToolbar>
         </IonHeader>
 
