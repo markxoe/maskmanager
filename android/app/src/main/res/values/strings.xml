@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mask manager</string>
+    <string name="title_activity_main">Mask manager</string>
+    <string name="package_name">org.toastbrot.maskmanager</string>
+    <string name="custom_url_scheme">org.toastbrot.maskmanager</string>
+</resources>

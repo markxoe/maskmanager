@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "3.1.2",
     "@capacitor/app": "1.0.2",
     "@capacitor/core": "3.1.2",
     "@capacitor/haptics": "1.0.2",
@@ -48,7 +49,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "splash:android": "cordova-res android --type splash --skip-config --copy"
   },
   "eslintConfig": {
     "extends": [
