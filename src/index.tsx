@@ -4,6 +4,7 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import "pwacompat";
+import "./custom.css";
 
 ReactDOM.render(
   <React.StrictMode>

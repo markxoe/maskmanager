@@ -110,10 +110,6 @@ const Home: React.FC = () => {
                         Starte Tragen
                       </IonButton>
                     )}
-                  </IonCol>
-                </IonRow>
-                <IonRow>
-                  <IonCol>
                     <IonButton
                       fill="solid"
                       color="danger"

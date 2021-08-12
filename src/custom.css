@@ -1,0 +1,3 @@
+.grid-no-column-padding {
+  --ion-grid-column-padding: none;
+}
