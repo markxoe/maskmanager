@@ -91,7 +91,7 @@ const Home: React.FC = () => {
                   </IonCol>
                 </IonRow>
                 <IonRow>
-                  <IonCol>
+                  <IonCol className="grid-no-column-padding">
                     {isCurrentlyWearing(i) ? (
                       <IonButton
                         onClick={() => dispatch(ActionStopCurrentWear(i))}>
