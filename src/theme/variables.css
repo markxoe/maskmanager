@@ -231,3 +231,7 @@ body.dark {
 
   --ion-card-background: #1e1e1e;
 }
+
+.ios body.dark ion-card ion-item {
+  --ion-item-background: var(--ion-card-background);
+}
