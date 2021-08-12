@@ -48,9 +48,10 @@ export const wearsToArray = (wears: { [key: string]: Wears }): WearWithID[] => {
 
 export const getWearDuration = (
   wear: Wears,
-  notCompleteUntilNow: boolean = false
+  notCompleteUntilNow: boolean = false,
+  now: number = Date.now()
 ) =>
-  (wear.endTime ?? (notCompleteUntilNow ? Date.now() : wear.startTime)) -
+  (wear.endTime ?? (notCompleteUntilNow ? now : wear.startTime)) -
   wear.startTime;
 
 export const getMaskWearDuration = (

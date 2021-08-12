@@ -21,6 +21,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonActionSheet,
 } from "@ionic/react";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -28,19 +29,24 @@ import { useAppContext } from "../hooks/AppContext";
 import {
   findMask,
   generateWearId,
+  getWearDuration,
   isMaskValid,
   sortWears,
 } from "../functions/Masks";
 import { Mask } from "../types/Mask";
 import IonPadding from "../components/IonPadding";
-import { add, save, trashBin } from "ionicons/icons";
+import { add, pencil, save, trash, trashBin } from "ionicons/icons";
 import { ActionAddWear, ActionDeleteWear } from "../db/Actions";
 import { useIonToastAdvanced } from "../hooks/useIonToastAdvanced";
+import { convertMStoHHMMSS } from "../functions/time";
+import { useTime } from "../hooks/time";
 
 const EditWearsPage: React.FC = () => {
   const { state, dispatch } = useAppContext();
   const { id } = useParams<{ id: string }>();
   const showToast = useIonToastAdvanced();
+  const [actionSheetPresent] = useIonActionSheet();
+  const time = useTime(500);
 
   const [newWearStart, setNewWearStart] = useState(
     Date.now() - 1000 * 60 * 60 * 2
@@ -92,8 +98,24 @@ const EditWearsPage: React.FC = () => {
             </IonCard>
             <IonListHeader>Benutzungen</IonListHeader>
             {sortWears(mask.wears).map((wear) => (
-              <IonCard key={wear.id + wear.startTime + wear.endTime}>
+              <IonCard
+                key={wear.id + wear.startTime + wear.endTime}
+                button
+                onClick={() => {
+                  actionSheetPresent([
+                    {
+                      text: "Löschen",
+                      icon: trash,
+                      role: "destructive",
+                      handler: () => dispatch(ActionDeleteWear(mask, wear)),
+                    },
+                    { text: "Abbrechen", role: "cancel" },
+                  ]);
+                }}>
                 <IonCardHeader>
+                  <div style={{ float: "right" }}>
+                    <IonIcon slot="end" size="small" icon={pencil} />
+                  </div>
                   <IonCardSubtitle>
                     Von {new Date(wear.startTime).toLocaleString()}
                   </IonCardSubtitle>
@@ -106,13 +128,7 @@ const EditWearsPage: React.FC = () => {
                   </IonCardSubtitle>
                 </IonCardHeader>
                 <IonCardContent>
-                  <IonButton
-                    slot="end"
-                    fill="clear"
-                    color="danger"
-                    onClick={() => dispatch(ActionDeleteWear(mask, wear))}>
-                    <IonIcon slot="icon-only" icon={trashBin} />
-                  </IonButton>
+                  ({convertMStoHHMMSS(getWearDuration(wear, true, time))})
                 </IonCardContent>
               </IonCard>
             ))}
