@@ -40,6 +40,8 @@ import { ActionAddWear, ActionDeleteWear } from "../db/Actions";
 import { useIonToastAdvanced } from "../hooks/useIonToastAdvanced";
 import { convertMStoHHMMSS } from "../functions/time";
 import { useTime } from "../hooks/time";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import "../animations/fade-away-quick.css";
 
 const EditWearsPage: React.FC = () => {
   const { state, dispatch } = useAppContext();
@@ -97,41 +99,48 @@ const EditWearsPage: React.FC = () => {
               )}
             </IonCard>
             <IonListHeader>Benutzungen</IonListHeader>
-            {sortWears(mask.wears).map((wear) => (
-              <IonCard
-                key={wear.id + wear.startTime + wear.endTime}
-                button
-                onClick={() => {
-                  actionSheetPresent([
-                    {
-                      text: "Löschen",
-                      icon: trash,
-                      role: "destructive",
-                      handler: () => dispatch(ActionDeleteWear(mask, wear)),
-                    },
-                    { text: "Abbrechen", icon: close, role: "cancel" },
-                  ]);
-                }}>
-                <IonCardHeader>
-                  <div style={{ float: "right" }}>
-                    <IonIcon slot="end" size="small" icon={pencil} />
-                  </div>
-                  <IonCardSubtitle>
-                    Von {new Date(wear.startTime).toLocaleString()}
-                  </IonCardSubtitle>
+            <TransitionGroup>
+              {sortWears(mask.wears).map((wear) => (
+                <CSSTransition
+                  key={wear.id}
+                  timeout={500}
+                  classNames="fade-away-quick">
+                  <IonCard
+                    key={wear.id + wear.startTime + wear.endTime}
+                    button
+                    onClick={() => {
+                      actionSheetPresent([
+                        {
+                          text: "Löschen",
+                          icon: trash,
+                          role: "destructive",
+                          handler: () => dispatch(ActionDeleteWear(mask, wear)),
+                        },
+                        { text: "Abbrechen", icon: close, role: "cancel" },
+                      ]);
+                    }}>
+                    <IonCardHeader>
+                      <div style={{ float: "right" }}>
+                        <IonIcon slot="end" size="small" icon={pencil} />
+                      </div>
+                      <IonCardSubtitle>
+                        Von {new Date(wear.startTime).toLocaleString()}
+                      </IonCardSubtitle>
 
-                  <IonCardSubtitle>
-                    Bis{" "}
-                    {wear.endTime
-                      ? new Date(wear.endTime).toLocaleString()
-                      : "Jetzt"}
-                  </IonCardSubtitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  ({convertMStoHHMMSS(getWearDuration(wear, true, time))})
-                </IonCardContent>
-              </IonCard>
-            ))}
+                      <IonCardSubtitle>
+                        Bis{" "}
+                        {wear.endTime
+                          ? new Date(wear.endTime).toLocaleString()
+                          : "Jetzt"}
+                      </IonCardSubtitle>
+                    </IonCardHeader>
+                    <IonCardContent>
+                      ({convertMStoHHMMSS(getWearDuration(wear, true, time))})
+                    </IonCardContent>
+                  </IonCard>
+                </CSSTransition>
+              ))}
+            </TransitionGroup>
 
             <IonFab horizontal="end" vertical="bottom" slot="fixed">
               <IonFabButton onClick={() => setNewWearModalOpen(true)}>
