@@ -35,7 +35,7 @@ import {
 } from "../functions/Masks";
 import { Mask } from "../types/Mask";
 import IonPadding from "../components/IonPadding";
-import { add, pencil, save, trash, trashBin } from "ionicons/icons";
+import { add, close, pencil, save, trash, trashBin } from "ionicons/icons";
 import { ActionAddWear, ActionDeleteWear } from "../db/Actions";
 import { useIonToastAdvanced } from "../hooks/useIonToastAdvanced";
 import { convertMStoHHMMSS } from "../functions/time";
@@ -109,7 +109,7 @@ const EditWearsPage: React.FC = () => {
                       role: "destructive",
                       handler: () => dispatch(ActionDeleteWear(mask, wear)),
                     },
-                    { text: "Abbrechen", role: "cancel" },
+                    { text: "Abbrechen", icon: close, role: "cancel" },
                   ]);
                 }}>
                 <IonCardHeader>
