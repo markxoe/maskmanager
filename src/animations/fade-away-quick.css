@@ -1,0 +1,9 @@
+/* Fade away Animation */
+
+.fade-away-quick-exit {
+  opacity: 1;
+}
+.fade-away-quick-exit-active {
+  opacity: 0;
+  transition: opacity ease-in 300ms;
+}
