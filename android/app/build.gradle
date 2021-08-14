@@ -1,4 +1,37 @@
 apply plugin: 'com.android.application'
+import groovy.json.JsonSlurper
+
+// Create an easy to use function
+def getVersionFromNpm() {
+    //  Read and parse package.json file from project root
+    def inputFile = new File("$rootDir/../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+
+    // Return the version, you can get any value this way
+    return packageJson["version"]
+}
+
+def buildVersionCode(versionName) {
+    def candidate = "99"
+    def (major, minor, patch) = versionName.toLowerCase().replaceAll('-', '').tokenize('.')
+    if (patch.endsWith("snapshot")) {
+        candidate = "0"
+        patch = patch.replaceAll("[^0-9]","")
+    } else {
+        def rc
+        (patch, rc) = patch.tokenize("rc")
+        if (rc) {
+            candidate = rc
+        }
+    }
+    (major, minor, patch, candidate) = [major, minor, patch, candidate].collect{it.toInteger()}
+    return (major * 1000000) + (minor * 10000) + (patch * 100) + candidate;
+}
+
+def packageVersionName = getVersionFromNpm()
+println "VersionName: "+packageVersionName
+def packageVersionCode = buildVersionCode(packageVersionName)
+println "VersionCode: "+packageVersionCode
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -6,8 +39,8 @@ android {
         applicationId "org.toastbrot.maskmanager"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode packageVersionCode
+        versionName packageVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
