@@ -52,3 +52,8 @@ export const ActionSetState = (state: State): Action => ({
   type: ActionTypes.SET_STATE,
   payload: state,
 });
+
+export const ActionSetDarkmode = (darkmode: boolean): Action => ({
+  type: ActionTypes.SET_DARKMODE,
+  payload: darkmode,
+});

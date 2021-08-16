@@ -16,6 +16,7 @@ export enum ActionTypes {
   DELETE_WEAR,
   DELETE_MASK,
   SET_STATE,
+  SET_DARKMODE,
 }
 
 export interface Action {

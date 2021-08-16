@@ -65,6 +65,9 @@ const reducer = (state: State, action: Action): State => {
     case ActionTypes.SET_STATE:
       return action.payload;
 
+    case ActionTypes.SET_DARKMODE:
+      return { ...state, darkmode: action.payload };
+
     default:
       return state;
   }

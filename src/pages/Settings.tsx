@@ -21,9 +21,9 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { save, trashBin } from "ionicons/icons";
+import { moon, save, sunny, trashBin } from "ionicons/icons";
 import React, { useState } from "react";
-import { ActionSetState } from "../db/Actions";
+import { ActionSetDarkmode, ActionSetState } from "../db/Actions";
 import { verifyImport } from "../functions/verifyimport";
 import { useAppContext } from "../hooks/AppContext";
 import { Share } from "@capacitor/share";
@@ -76,6 +76,17 @@ const SettingsPage: React.FC = () => {
               })
             }>
             Export
+          </IonButton>
+        </IonItem>
+
+        <IonListHeader>Aussehen</IonListHeader>
+        <IonItem>
+          <IonLabel>{state.darkmode ? "Darkmode" : "Lightmode"}</IonLabel>
+          <IonButton
+            slot="end"
+            fill="clear"
+            onClick={() => dispatch(ActionSetDarkmode(!state.darkmode))}>
+            <IonIcon slot="icon-only" icon={state.darkmode ? moon : sunny} />
           </IonButton>
         </IonItem>
 
