@@ -1,0 +1,11 @@
+{
+	"appId": "org.toastbrot.maskmanager",
+	"appName": "Mask manager",
+	"webDir": "build",
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchAutoHide": false
+		}
+	}
+}

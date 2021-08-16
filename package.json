@@ -8,6 +8,7 @@
     "@capacitor/clipboard": "^1.0.2",
     "@capacitor/core": "3.1.2",
     "@capacitor/haptics": "1.0.2",
+    "@capacitor/ios": "3.1.2",
     "@capacitor/keyboard": "1.0.2",
     "@capacitor/share": "^1.0.3",
     "@capacitor/splash-screen": "^1.1.0",
@@ -53,7 +54,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "splash:android": "cordova-res android --type splash --skip-config --copy"
+    "splash:android": "cordova-res android --type splash --skip-config --copy",
+    "splash:ios":"cordova-res ios --type splash --skip-config --copy",
+    "icon:ios":"cordova-res ios --type icon --skip-config --copy"
   },
   "eslintConfig": {
     "extends": [
