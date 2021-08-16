@@ -70,6 +70,10 @@ const RotationsVerfahrenPage: React.FC = () => {
               ebenfalls Markiert
             </p>
             <p>Sortiert wird nach dem letzten Tragen, die älteste ganz oben</p>
+            <p>
+              Disclaimer: Die Wiederverwendung von Masken kann zu einem erhöhten
+              Infektionsrisiko führen!
+            </p>
           </IonCardContent>
         </IonCard>
         {state.masks

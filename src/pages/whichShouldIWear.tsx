@@ -57,6 +57,10 @@ const WhichShouldIWearPage: React.FC = () => {
               50 Punkte für garnicht getragen. (Je öfter getragen, desto weniger
               Punkte (ab 5 mal Tragen &rarr; 0 Punkte))
             </p>
+            <p>
+              Disclaimer: Die Wiederverwendung von Masken kann zu einem erhöhten
+              Infektionsrisiko führen!
+            </p>
           </IonCardContent>
         </IonCard>
 
