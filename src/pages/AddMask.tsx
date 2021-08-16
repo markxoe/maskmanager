@@ -11,7 +11,7 @@ import {
   IonToolbar,
   useIonViewWillEnter,
 } from "@ionic/react";
-import React, { Ref, useContext, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { useHistory } from "react-router";
 import IonPadding from "../components/IonPadding";
 import { ActionAddMask } from "../db/Actions";
@@ -23,7 +23,7 @@ import "./AddMask.css";
 const AddMaskPage: React.FC = () => {
   const { dispatch } = useContext(AppContext);
   const history = useHistory();
-  const swiper = useRef<HTMLIonSlidesElement>();
+  const swiper = useRef<null | HTMLIonSlidesElement>(null);
 
   const [newID, setNewID] = React.useState("");
 
@@ -43,7 +43,7 @@ const AddMaskPage: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonSlides
-          ref={swiper as Ref<HTMLIonSlidesElement>}
+          ref={swiper}
           options={{
             pagination: { el: ".swiper-pagination", type: "progressbar" },
           }}

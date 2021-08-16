@@ -68,7 +68,11 @@ const Home: React.FC = () => {
         </IonHeader>
         <TransitionGroup>
           {state.masks.map((i) => (
-            <CSSTransition id={i.id} timeout={500} classNames="fade-away-quick">
+            <CSSTransition
+              key={i.id}
+              id={i.id}
+              timeout={500}
+              classNames="fade-away-quick">
               <IonCard>
                 <IonCardHeader>
                   <IonCardTitle>{i.id}</IonCardTitle>
