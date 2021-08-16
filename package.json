@@ -54,7 +54,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "splash:android": "cordova-res android --type splash --skip-config --copy"
+    "splash:android": "cordova-res android --type splash --skip-config --copy",
+    "splash:ios":"cordova-res ios --type splash --skip-config --copy",
+    "icon:ios":"cordova-res ios --type icon --skip-config --copy"
   },
   "eslintConfig": {
     "extends": [
