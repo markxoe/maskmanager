@@ -1,6 +1,6 @@
 {
   "name": "maskmanager",
-  "version": "0.0.1-RC01",
+  "version": "0.1.0-RC01",
   "private": true,
   "dependencies": {
     "@capacitor/android": "3.1.2",
@@ -55,8 +55,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "splash:android": "cordova-res android --type splash --skip-config --copy",
-    "splash:ios":"cordova-res ios --type splash --skip-config --copy",
-    "icon:ios":"cordova-res ios --type icon --skip-config --copy"
+    "splash:ios": "cordova-res ios --type splash --skip-config --copy",
+    "icon:ios": "cordova-res ios --type icon --skip-config --copy"
   },
   "eslintConfig": {
     "extends": [
