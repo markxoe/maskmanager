@@ -53,6 +53,14 @@ npm install
 ionic build
 ```
 
+4. Für Nativ kompilieren:
+   - Android
+     1. Kompilieren und Native Module kopieren: `ionic cap sync android`
+     2. Android Studio öffnen: `ionic cap open android`
+   - iOS
+     1. Kompilieren und Native Module kopieren: `ionic cap sync ios`
+     2. XCode öffnen: `ionic cap open ios`
+
 ## Contributing
 
 Jeder Beitrag, wird **sehr geschätzt**.
