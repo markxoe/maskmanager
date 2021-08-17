@@ -102,6 +102,10 @@ export const AppContextProvider: React.FC = (props) => {
       StatusBar.setStyle({
         style: state.darkmode ? Style.Dark : Style.Light,
       });
+    if (isPlatform("android"))
+      StatusBar.setBackgroundColor({
+        color: state.darkmode ? "#000000" : "#ffffff",
+      });
   }, [state.darkmode]);
 
   return (
