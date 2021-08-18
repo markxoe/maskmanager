@@ -32,11 +32,14 @@ import {
 import {
   ActionAddMask,
   ActionAddWear,
+  ActionSetCameraID,
   ActionStopCurrentWear,
 } from "../db/Actions";
+import { useIonToastAdvanced } from "../hooks/useIonToastAdvanced";
 
 const ScannerPage: React.FC = () => {
   const { state, dispatch } = useAppContext();
+  const showToast = useIonToastAdvanced();
   const video = useRef<HTMLVideoElement | null>(null);
 
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
@@ -56,7 +59,7 @@ const ScannerPage: React.FC = () => {
       BrowserCodeReader.listVideoInputDevices().then((newDevices) =>
         setDevices(newDevices)
       );
-  });
+  }, []);
 
   return (
     <IonPage>
@@ -70,7 +73,7 @@ const ScannerPage: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonCard>
-          <video hidden ref={video} />
+          <video hidden ref={video} width="100%" />
 
           <IonCardHeader>
             <IonCardTitle>QR-/Barcode Scanner</IonCardTitle>
@@ -78,9 +81,7 @@ const ScannerPage: React.FC = () => {
 
           <IonCardContent>
             <IonList lines="none">
-              {isPlatform("hybrid") ? (
-                ""
-              ) : (
+              {!isPlatform("hybrid") && (
                 <>
                   <IonItem>
                     <IonLabel>Kamera auswählen:</IonLabel>
@@ -90,7 +91,9 @@ const ScannerPage: React.FC = () => {
                       slot="start"
                       onIonChange={(e) => {
                         setDeviceId(e.detail.value);
+                        dispatch(ActionSetCameraID(e.detail.value));
                       }}
+                      value={state.defaultCameraId}
                       placeholder="Kamera">
                       {devices.map((dev) => (
                         <IonSelectOption value={dev.deviceId}>
@@ -106,12 +109,14 @@ const ScannerPage: React.FC = () => {
                   size="default"
                   onClick={() => {
                     newScan(video.current!, currDeviceId).then(
-                      ({ status, data }) => {
+                      ({ status, data, err }) => {
                         if (status === "ok") {
                           setLatestResult(data);
                           console.log(data);
+                        } else {
+                          showToast(err!, 5000);
                         }
-                        console.log({ status, data });
+                        console.log({ status, data, err });
                       }
                     );
                   }}>

@@ -30,7 +30,12 @@ export const newScan = async (
             videoElement.setAttribute("hidden", "");
           }
         }
-      );
+      ).catch((e) => {
+        resolve({
+          err: `Err: ${e}`,
+        });
+        videoElement.setAttribute("hidden", "");
+      });
     });
   };
 
