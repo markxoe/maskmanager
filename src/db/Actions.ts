@@ -57,3 +57,8 @@ export const ActionSetDarkmode = (darkmode: boolean): Action => ({
   type: ActionTypes.SET_DARKMODE,
   payload: darkmode,
 });
+
+export const ActionSetCameraID = (cameraId: string): Action => ({
+  type: ActionTypes.SET_CAMERA_ID,
+  payload: cameraId,
+});

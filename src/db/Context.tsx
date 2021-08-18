@@ -13,6 +13,7 @@ export const AppContext = React.createContext<Context>({} as Context);
 export const initialState: State = {
   masks: [],
   darkmode: true,
+  defaultCameraId: "",
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -68,6 +69,9 @@ const reducer = (state: State, action: Action): State => {
     case ActionTypes.SET_DARKMODE:
       return { ...state, darkmode: action.payload };
 
+    case ActionTypes.SET_CAMERA_ID:
+      return { ...state, defaultCameraId: action.payload };
+
     default:
       return state;
   }
@@ -102,7 +106,7 @@ export const AppContextProvider: React.FC = (props) => {
       StatusBar.setStyle({
         style: state.darkmode ? Style.Dark : Style.Light,
       });
-    if (isPlatform("android"))
+    if (isPlatform("hybrid") && isPlatform("android"))
       StatusBar.setBackgroundColor({
         color: state.darkmode ? "#000000" : "#ffffff",
       });
