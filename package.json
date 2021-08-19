@@ -85,5 +85,10 @@
     "@capacitor/cli": "3.1.2",
     "@types/react-transition-group": "^4.4.2"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "jest": {
+    "transformIgnorePatterns": [
+      "/.(java|class|jar)$/"
+    ]
+  }
 }
