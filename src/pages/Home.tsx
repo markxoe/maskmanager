@@ -19,7 +19,7 @@ import {
   IonToolbar,
   useIonAlert,
 } from "@ionic/react";
-import { add, settings } from "ionicons/icons";
+import { qrCode, settings } from "ionicons/icons";
 import {
   ActionAddWear,
   ActionDeleteMask,
@@ -187,8 +187,8 @@ const Home: React.FC = () => {
         </IonCard>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/mask/add">
-            <IonIcon icon={add} />
+          <IonFabButton routerLink="/scanner">
+            <IonIcon icon={qrCode} />
           </IonFabButton>
         </IonFab>
       </IonContent>
