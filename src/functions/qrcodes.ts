@@ -1,6 +1,6 @@
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { isPlatform } from "@ionic/react";
-import { BrowserQRCodeReader } from "@zxing/browser";
+import { BrowserMultiFormatReader } from "@zxing/browser";
 
 export const newScan = async (
   videoElement: HTMLVideoElement,
@@ -11,7 +11,7 @@ export const newScan = async (
     videoElement: HTMLVideoElement,
     timeout = 30000
   ): Promise<{ data?: string; err?: string }> => {
-    const qr = new BrowserQRCodeReader();
+    const qr = new BrowserMultiFormatReader();
     return new Promise((resolve) => {
       const start = Date.now();
       videoElement.removeAttribute("hidden");
@@ -44,7 +44,11 @@ export const newScan = async (
       showTorchButton: true,
       showFlipCameraButton: true,
     });
-    return { status: BSResult.cancelled ? "err" : "ok", data: BSResult.text };
+    return {
+      status: BSResult.cancelled ? "err" : "ok",
+      data: BSResult.text,
+      err: BSResult.cancelled ? "Cancelled" : undefined,
+    };
   } else {
     const scanner = await scan(deviceId!, videoElement, 15000);
     return {
