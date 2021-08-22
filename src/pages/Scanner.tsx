@@ -1,4 +1,5 @@
 import {
+  AlertOptions,
   IonBackButton,
   IonButton,
   IonButtons,
@@ -96,6 +97,7 @@ const ScannerPage: React.FC = () => {
                 </IonItem>
                 <IonItem>
                   <IonSelect
+                    interfaceOptions={{ translucent: true } as AlertOptions}
                     slot="start"
                     onIonChange={(e) => {
                       setDeviceId(e.detail.value);
