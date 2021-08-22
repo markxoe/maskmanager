@@ -27,6 +27,7 @@ import EditWearsPage from "./pages/EditWears";
 import WhichShouldIWearPage from "./pages/whichShouldIWear";
 import RotationsVerfahrenPage from "./pages/Rotationsverfahren";
 import SettingsPage from "./pages/Settings";
+import ScannerPage from "./pages/Scanner";
 
 const App: React.FC = () => (
   <AppContextProvider>
@@ -53,6 +54,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/settings">
             <SettingsPage />
+          </Route>
+          <Route exact path="/scanner">
+            <ScannerPage />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

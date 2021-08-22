@@ -4,6 +4,7 @@ import { Mask } from "../types/Mask";
 export interface State {
   masks: Mask[];
   darkmode: boolean;
+  defaultCameraId: string;
 }
 
 export enum ActionTypes {
@@ -17,6 +18,7 @@ export enum ActionTypes {
   DELETE_MASK,
   SET_STATE,
   SET_DARKMODE,
+  SET_CAMERA_ID,
 }
 
 export interface Action {
