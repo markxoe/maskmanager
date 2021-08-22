@@ -88,8 +88,8 @@ const ScannerPage: React.FC = () => {
           <IonCardHeader>
             <IonCardTitle>QR-/Barcode Scanner</IonCardTitle>
             <IonCardSubtitle>
-              Scanne QR-/Barcodes von deiner Maske, um sie hinzuzufügen oder sie
-              zu tragen
+              Scanne QR-/Barcodes von deiner Maske, um sie hinzuzufügen oder zu
+              tragen. Jeder QR- oder Barcode ist zulässig.
             </IonCardSubtitle>
           </IonCardHeader>
 
