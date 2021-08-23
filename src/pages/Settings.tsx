@@ -70,9 +70,7 @@ const SettingsPage: React.FC = () => {
                 dialogTitle: "Deine Daten",
               }).catch(() => {
                 Clipboard.write({ string: serializeState(state) });
-                showToast("Daten sind jetzt in deiner Zwischenablage", 5000, {
-                  translucent: true,
-                });
+                showToast("Daten sind jetzt in deiner Zwischenablage", 5000);
               })
             }>
             Export
@@ -128,9 +126,7 @@ const SettingsPage: React.FC = () => {
                       showToast("Daten nicht valide", 5000);
                     } else {
                       dispatch(ActionSetState(data));
-                      showToast("Daten importiert", 5000, {
-                        translucent: true,
-                      });
+                      showToast("Daten importiert", 5000);
                       setOpenImport(false);
                     }
                   }}>

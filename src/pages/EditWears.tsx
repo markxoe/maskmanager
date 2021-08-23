@@ -178,7 +178,7 @@ const EditWearsPage: React.FC = () => {
                       );
                       setNewWearModalOpen(false);
                     } else {
-                      showToast("Action Illegal", 5000, { translucent: true });
+                      showToast("Action Illegal", 5000);
                       setNewWearModalOpen(false);
                     }
                   }}>
