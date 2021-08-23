@@ -1,9 +1,11 @@
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
+import { BarcodeScanner as CapBS } from "@capacitor-community/barcode-scanner";
 import { isPlatform } from "@ionic/react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
 
 export const newScan = async (
   videoElement: HTMLVideoElement,
+  nativeSettingsRedirectPrompt: (redirectFun: () => any) => any,
   deviceId?: string
 ): Promise<{ status: "ok" | "err"; data?: string; err?: string }> => {
   const scan = (
@@ -40,15 +42,21 @@ export const newScan = async (
   };
 
   if (isPlatform("hybrid")) {
-    const BSResult = await BarcodeScanner.scan({
-      showTorchButton: true,
-      showFlipCameraButton: true,
-    });
-    return {
-      status: BSResult.cancelled ? "err" : "ok",
-      data: BSResult.text,
-      err: BSResult.cancelled ? "Cancelled" : undefined,
-    };
+    const permissions = await CapBS.checkPermission({ force: true });
+    if (permissions.granted) {
+      const BSResult = await BarcodeScanner.scan({
+        showTorchButton: true,
+        showFlipCameraButton: true,
+      });
+      return {
+        status: BSResult.cancelled ? "err" : "ok",
+        data: BSResult.text,
+        err: BSResult.cancelled ? "Cancelled" : undefined,
+      };
+    } else {
+      nativeSettingsRedirectPrompt(() => CapBS.openAppSettings());
+      return { status: "err", err: "Nicht erlaubt" };
+    }
   } else {
     const scanner = await scan(deviceId!, videoElement, 15000);
     return {

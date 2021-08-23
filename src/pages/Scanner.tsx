@@ -121,17 +121,23 @@ const ScannerPage: React.FC = () => {
             <IonButton
               size="default"
               onClick={() => {
-                newScan(video.current!, currDeviceId).then(
-                  ({ status, data, err }) => {
-                    if (status === "ok") {
-                      setLatestResult(data);
-                      console.log(data);
-                    } else {
-                      showToast(err!, 5000);
-                    }
-                    console.log({ status, data, err });
+                newScan(
+                  video.current!,
+                  (redirect) =>
+                    openAlert("Kamera wird benötigt", [
+                      { text: "Nö" },
+                      { text: "Oke", handler: redirect },
+                    ]),
+                  currDeviceId
+                ).then(({ status, data, err }) => {
+                  if (status === "ok") {
+                    setLatestResult(data);
+                    console.log(data);
+                  } else {
+                    showToast(err!, 5000);
                   }
-                );
+                  console.log({ status, data, err });
+                });
               }}>
               Scanner öffnen
             </IonButton>
