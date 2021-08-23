@@ -1,6 +1,6 @@
 {
   "name": "maskmanager",
-  "version": "0.1.0-RC01",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@capacitor-community/barcode-scanner": "^2.0.1",
