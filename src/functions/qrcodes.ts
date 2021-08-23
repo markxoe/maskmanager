@@ -46,6 +46,8 @@ export const newScan = async (
       promptMessage:
         "Kamera für QR Codes und Barcodes benötigt. Zu den Einstellungen gehen?",
       promptTitle: "Kamera benötigt",
+      ok: "Ok",
+      no: "Nö",
     });
     console.log(permissions);
     if (permissions.authorized) {
