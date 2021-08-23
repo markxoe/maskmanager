@@ -100,13 +100,13 @@ public class CameraPermissionPlugin extends Plugin {
         sharedPreference.edit().putBoolean(CameraPermissionPlugin.PERMISSION_NAME, false).apply();
     }
 
-    public void openAppSettings() {
+    private void openAppSettings() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", getAppId(), null));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getActivity().startActivity(intent);
     }
 
-    public static <T> T getValueOrDefault(T value, T defaultValue) {
+    private static <T> T getValueOrDefault(T value, T defaultValue) {
         return value == null ? defaultValue : value;
     }
 }
