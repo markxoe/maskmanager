@@ -3,6 +3,7 @@
   "version": "0.1.0-RC01",
   "private": true,
   "dependencies": {
+    "@capacitor-community/barcode-scanner": "^2.0.1",
     "@capacitor/android": "3.1.2",
     "@capacitor/app": "1.0.2",
     "@capacitor/clipboard": "^1.0.2",
