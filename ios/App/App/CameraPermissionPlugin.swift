@@ -16,21 +16,21 @@ public class CameraPermissionPlugin: CAPPlugin {
             return;
         case .denied:
             let alert = UIAlertController(title: call.getString("promptTitle"), message: call.getString("promptMessage"), preferredStyle: .alert);
-            alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
-                call.resolve(["authorized": false, "permissionPrompted": true]);
-            }));
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
-                    call.resolve(["authorized": false, "permissionPrompted": false]);
-                    return;
-                };
+            alert.addAction(UIAlertAction(title: call.getString("no") ?? "No", style: .destructive, handler: { _ in
+                    call.resolve(["authorized": false, "permissionPrompted": true]);
+                }));
+            alert.addAction(UIAlertAction(title: call.getString("ok") ?? "Ok", style: .default, handler: { _ in
+                    guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
+                        call.resolve(["authorized": false, "permissionPrompted": false]);
+                        return;
+                    };
 
-                if UIApplication.shared.canOpenURL(settingsURL) {
-                    UIApplication.shared.open(settingsURL);
-                }
-                call.resolve(["authorized": false, "permissionPrompted": false]);
-            }));
-            
+                    if UIApplication.shared.canOpenURL(settingsURL) {
+                        UIApplication.shared.open(settingsURL);
+                    }
+                    call.resolve(["authorized": false, "permissionPrompted": false]);
+                }));
+
             self.bridge?.viewController?.present(alert, animated: true, completion: nil);
             return;
 
@@ -38,7 +38,7 @@ public class CameraPermissionPlugin: CAPPlugin {
             call.resolve(["authorized": false, "permissionPrompted": false, "unknown": true]);
         }
     }
-    
+
     private func requestPerm(call: CAPPluginCall) {
         AVCaptureDevice.requestAccess(for: .video, completionHandler: { granted in
             if granted {

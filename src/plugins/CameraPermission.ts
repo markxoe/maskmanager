@@ -4,6 +4,8 @@ export interface CameraPermissionPlugin {
   checkPermission(options: {
     promptTitle: string;
     promptMessage: string;
+    no?: string;
+    ok?: string;
   }): Promise<{
     authorized: boolean;
     permissionPrompted: boolean;
