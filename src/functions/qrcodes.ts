@@ -1,7 +1,7 @@
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
-import { BarcodeScanner as CapBS } from "@capacitor-community/barcode-scanner";
 import { isPlatform } from "@ionic/react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
+import CameraPermission from "../plugins/CameraPermission";
 
 export const newScan = async (
   videoElement: HTMLVideoElement,
@@ -42,8 +42,15 @@ export const newScan = async (
   };
 
   if (isPlatform("hybrid")) {
-    const permissions = await CapBS.checkPermission({ force: true });
-    if (permissions.granted) {
+    const permissions = await CameraPermission.checkPermission({
+      promptMessage:
+        "Kamera für QR Codes und Barcodes benötigt. Zu den Einstellungen gehen?",
+      promptTitle: "Kamera benötigt",
+      ok: "Ok",
+      no: "Nö",
+    });
+    console.log(permissions);
+    if (permissions.authorized) {
       const BSResult = await BarcodeScanner.scan({
         showTorchButton: true,
         showFlipCameraButton: true,
@@ -54,7 +61,6 @@ export const newScan = async (
         err: BSResult.cancelled ? "Cancelled" : undefined,
       };
     } else {
-      nativeSettingsRedirectPrompt(() => CapBS.openAppSettings());
       return { status: "err", err: "Nicht erlaubt" };
     }
   } else {
