@@ -42,7 +42,7 @@ jobs:
           path: build/
 
   deploy-web-develop:
-    name: Deploy Production
+    name: Deploy Develop
     needs: test-and-build
     runs-on: ubuntu-latest
     if: (github.ref == 'refs/heads/develop') || (startsWith(github.ref,'refs/tags/') && (!contains(github.ref,'RC') && !contains(github.ref,'SNAPSHOT'))) || (github.event.inputs.deploy-develop == 'Yes') || (github.event.inputs.deploy-production == 'Yes')
