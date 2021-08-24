@@ -1,6 +1,14 @@
 name: Test and Build
 on:
   push:
+  workflow_dispatch:
+    inputs:
+      deploy-production:
+        description: If "Yes" then build and deploy to production
+        required: false
+      deploy-develop:
+        description: If "Yes" then build and deploy to develop
+        required: false
 
 jobs:
   test-and-build:
@@ -27,3 +35,54 @@ jobs:
         run: npm test
       - name: Production build
         run: npm run build
+      - name: Upload web artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: web
+          path: build/
+
+  deploy-web-develop:
+    name: Deploy Production
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: (github.ref == 'refs/heads/develop') || (startsWith(github.ref,'refs/tags/') && (!contains(github.ref,"RC") && !contains(github.ref,"SNAPSHOT"))) || (github.event.inputs.deploy-develop == 'Yes') || (github.event.inputs.deploy-production == 'Yes')
+    steps:
+      - name: Download web artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: web
+          path: build/
+
+      - name: Upload
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          port: ${{ secrets.FTP_PORT }}
+          server-dir: ${{ secrets.FTP_TARGET_DEVELOP }}
+          local-dir: build/
+
+  deploy-web-production:
+    name: Deploy Production
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: (startsWith(github.ref,'refs/tags/') && (!contains(github.ref,"RC") && !contains(github.ref,"SNAPSHOT"))) || (github.event.inputs.deploy-production == 'Yes')
+    steps:
+      - name: Download web artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: web
+          path: build/
+
+      - name: Upload
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          port: ${{ secrets.FTP_PORT }}
+          server-dir: ${{ secrets.FTP_TARGET_PRODUCTION }}
+          local-dir: build/
