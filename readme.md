@@ -7,7 +7,7 @@
   <h3 align="center">Mask manager</h3>
 
   <p align="center">
-    Organisier deine Masken sinnvoll und effizient
+    Organisiere deine Masken sinnvoll und effizient
     <br/>
     <br/>
     <a href="https://play.google.com/store/apps/details?id=org.toastbrot.maskmanager&utm_source=github&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img src="https://img.shields.io/badge/Jetzt%20bei-Google%20Play-%23414141?logo=google-play&style=for-the-badge" height="20"/></a>
@@ -19,7 +19,7 @@
 
 ## Was ist das?
 
-Mask manager ist eine App, um deine Masken zu organisieren. Die Masken markierst du mit kurzen Codes, sodass du weißt welche Maske, welche ist.
+Mask manager ist eine App, um deine Masken zu organisieren. Die Masken markierst du mit kurzen Codes, sodass du weißt welche Maske welche ist. Eindeutige QR- oder Barcodes können mit einem integrierten Scanner verwendet werden. Mehr dazu unter [Der Die Das Barcode](#Der-Die-Das-Barcode)
 Die App hilft dir bei dem Rotationsverfahren und zeigt dir, welche Maske du als nächstes tragen solltest
 
 ## Built With
@@ -28,7 +28,33 @@ Die App hilft dir bei dem Rotationsverfahren und zeigt dir, welche Maske du als 
 - Capacitor
 - React
 
+## Der Die Das Barcode
+
+### Was muss der Inhalt sein?
+
+Das ist eigentlich kack egal, nur musst du darauf achten, dass der Inhalt bei jeder Maske unterschiedlich ist.
+
+### Gönn mal bitte Link
+
+Im Internet gibt es viele Anbieter, die QR Codes auf Rollen anbieten.
+
+Ein Beispiel hier: [https://barcodeetiketten.com/](https://barcodeetiketten.com/etiketten-6x6-folieweiss--8-ff-noplain-qr-300x?number=1-2S-850B-3-99999-U0)
+
+### Kreatives Beispiel für einen QRCode
+
+![QRCode](https://chart.googleapis.com/chart?chl=UUt5A&cht=qr&chs=128x128)
+
 ## Getting Started
+
+### Du bist ein Enduser?
+
+Dann gönn dir die App auf Android: [Google Play](https://play.google.com/store/apps/details?id=org.toastbrot.maskmanager&utm_source=github-enduser&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+
+Oder für das Web und iOS (bei iOS auf `Zum Startbildschirm hinzufügen` klicken, es lohnt sich) als PWA verfügbar: [PWA](https://maskmanager.toastbrot.org/)
+
+### Ne i bims Entwickler
+
+Dann gönn dir folgendes
 
 ### Vorbereitungen
 
@@ -65,12 +91,12 @@ ionic build
 
 ## Contributing
 
-Jeder Beitrag, wird **sehr geschätzt**.
+Jeder Beitrag wird **sehr geschätzt**.
 
 ### How to: Contributing
 
 - Du hast eine Idee? Öffne ein [Issue](https://github.com/markxoe/maskmanager/issues/new) oder
-- Du willst selber Programmieren? Forke das Projekt und erstelle ein Pull Request!
+- Du willst selber Programmieren? Forke das Projekt und erstelle ein Pull Request! Erstelle dazu einen neuen Branch und merge deinen Pull Request in den `develop` branch.
 
 ## License
 
