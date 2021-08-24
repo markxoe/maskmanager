@@ -45,7 +45,7 @@ jobs:
     name: Deploy Production
     needs: test-and-build
     runs-on: ubuntu-latest
-    if: (github.ref == 'refs/heads/develop') || (startsWith(github.ref,'refs/tags/') && (!contains(github.ref,"RC") && !contains(github.ref,"SNAPSHOT"))) || (github.event.inputs.deploy-develop == 'Yes') || (github.event.inputs.deploy-production == 'Yes')
+    if: (github.ref == 'refs/heads/develop') || (startsWith(github.ref,'refs/tags/') && (!contains(github.ref,'RC') && !contains(github.ref,'SNAPSHOT'))) || (github.event.inputs.deploy-develop == 'Yes') || (github.event.inputs.deploy-production == 'Yes')
     steps:
       - name: Download web artifacts
         uses: actions/download-artifact@v2
@@ -68,7 +68,7 @@ jobs:
     name: Deploy Production
     needs: test-and-build
     runs-on: ubuntu-latest
-    if: (startsWith(github.ref,'refs/tags/') && (!contains(github.ref,"RC") && !contains(github.ref,"SNAPSHOT"))) || (github.event.inputs.deploy-production == 'Yes')
+    if: (startsWith(github.ref,'refs/tags/') && (!contains(github.ref,'RC') && !contains(github.ref,'SNAPSHOT'))) || (github.event.inputs.deploy-production == 'Yes')
     steps:
       - name: Download web artifacts
         uses: actions/download-artifact@v2
