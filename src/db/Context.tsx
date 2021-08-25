@@ -13,7 +13,7 @@ export const AppContext = React.createContext<Context>({} as Context);
 export const initialState: State = {
   masks: [],
   darkmode: true,
-  defaultCameraId: "",
+  defaultCameraDirection: "environment",
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -69,8 +69,8 @@ const reducer = (state: State, action: Action): State => {
     case ActionTypes.SET_DARKMODE:
       return { ...state, darkmode: action.payload };
 
-    case ActionTypes.SET_CAMERA_ID:
-      return { ...state, defaultCameraId: action.payload };
+    case ActionTypes.SET_CAMERA_DIRECTION:
+      return { ...state, defaultCameraDirection: action.payload };
 
     default:
       return state;

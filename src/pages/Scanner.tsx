@@ -37,6 +37,7 @@ import {
   ActionAddMask,
   ActionAddWear,
   ActionDeleteMask,
+  ActionSetCameraDirection,
   ActionStopCurrentWear,
 } from "../db/Actions";
 import { useIonToastAdvanced } from "../hooks/useIonToastAdvanced";
@@ -50,9 +51,6 @@ const ScannerPage: React.FC = () => {
   const [openAlert] = useIonAlert();
   const video = useRef<HTMLVideoElement | null>(null);
 
-  const [currDeviceDirection, setDeviceDirection] = useState<
-    "environment" | "user"
-  >("environment");
   const [latestResult, setLatestResult] = useState<string | undefined>();
 
   const [mask, setMask] = useState<Mask | undefined>(undefined);
@@ -96,9 +94,9 @@ const ScannerPage: React.FC = () => {
                     interfaceOptions={{ translucent: true } as AlertOptions}
                     slot="start"
                     onIonChange={(e) => {
-                      setDeviceDirection(e.detail.value);
+                      dispatch(ActionSetCameraDirection(e.detail.value));
                     }}
-                    value={currDeviceDirection}
+                    value={state.defaultCameraDirection}
                     placeholder="Kamera">
                     <IonSelectOption value={"environment"}>
                       Umgebungskamera
@@ -120,7 +118,7 @@ const ScannerPage: React.FC = () => {
                       { text: "Nö" },
                       { text: "Oke", handler: redirect },
                     ]),
-                  currDeviceDirection
+                  state.defaultCameraDirection
                 ).then(({ status, data, err }) => {
                   if (status === "ok") {
                     setLatestResult(data);
