@@ -22,7 +22,6 @@ import {
   useIonAlert,
 } from "@ionic/react";
 import React, { useEffect, useRef, useState } from "react";
-import { BrowserCodeReader } from "@zxing/browser";
 import { newScan } from "../functions/qrcodes";
 import { Mask } from "../types/Mask";
 import { useAppContext } from "../hooks/AppContext";
@@ -38,7 +37,6 @@ import {
   ActionAddMask,
   ActionAddWear,
   ActionDeleteMask,
-  ActionSetCameraID,
   ActionStopCurrentWear,
 } from "../db/Actions";
 import { useIonToastAdvanced } from "../hooks/useIonToastAdvanced";
@@ -52,8 +50,9 @@ const ScannerPage: React.FC = () => {
   const [openAlert] = useIonAlert();
   const video = useRef<HTMLVideoElement | null>(null);
 
-  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
-  const [currDeviceId, setDeviceId] = useState<string | undefined>();
+  const [currDeviceDirection, setDeviceDirection] = useState<
+    "environment" | "user"
+  >("environment");
   const [latestResult, setLatestResult] = useState<string | undefined>();
 
   const [mask, setMask] = useState<Mask | undefined>(undefined);
@@ -63,13 +62,6 @@ const ScannerPage: React.FC = () => {
   useEffect(() => {
     setMask(latestResult ? findMask(state.masks, latestResult) : undefined);
   }, [latestResult, state.masks]);
-
-  useEffect(() => {
-    if (!isPlatform("hybrid"))
-      BrowserCodeReader.listVideoInputDevices().then((newDevices) =>
-        setDevices(newDevices)
-      );
-  }, []);
 
   return (
     <IonPage>
@@ -97,23 +89,23 @@ const ScannerPage: React.FC = () => {
             {!isPlatform("hybrid") && (
               <IonList lines="none">
                 <IonItem>
-                  <IonLabel>Kamera auswählen:</IonLabel>
+                  <IonLabel>Kamerarichtung:</IonLabel>
                 </IonItem>
                 <IonItem>
                   <IonSelect
                     interfaceOptions={{ translucent: true } as AlertOptions}
                     slot="start"
                     onIonChange={(e) => {
-                      setDeviceId(e.detail.value);
-                      dispatch(ActionSetCameraID(e.detail.value));
+                      setDeviceDirection(e.detail.value);
                     }}
-                    value={state.defaultCameraId}
+                    value={currDeviceDirection}
                     placeholder="Kamera">
-                    {devices.map((dev) => (
-                      <IonSelectOption value={dev.deviceId}>
-                        {dev.label}
-                      </IonSelectOption>
-                    ))}
+                    <IonSelectOption value={"environment"}>
+                      Umgebungskamera
+                    </IonSelectOption>
+                    <IonSelectOption value={"user"}>
+                      Frontkamera
+                    </IonSelectOption>
                   </IonSelect>
                 </IonItem>
               </IonList>
@@ -128,7 +120,7 @@ const ScannerPage: React.FC = () => {
                       { text: "Nö" },
                       { text: "Oke", handler: redirect },
                     ]),
-                  currDeviceId
+                  currDeviceDirection
                 ).then(({ status, data, err }) => {
                   if (status === "ok") {
                     setLatestResult(data);
