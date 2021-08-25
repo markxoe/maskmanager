@@ -8,4 +8,6 @@
   RewriteCond %{REQUEST_FILENAME} !-l
   RewriteRule . /index.html [L]
 
+  Header set Feature-Policy: camera 'self'
+
 </IfModule>
