@@ -9,3 +9,6 @@
   RewriteRule . /index.html [L]
 
 </IfModule>
+<IfModule mod_headers.c>
+  Header set Feature-Policy "camera 'self'"
+</IfModule>
