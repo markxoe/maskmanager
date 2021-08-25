@@ -52,6 +52,8 @@ Dann gönn dir die App auf Android: [Google Play](https://play.google.com/store/
 
 Oder für das Web und iOS (bei iOS auf `Zum Startbildschirm hinzufügen` klicken, es lohnt sich) als PWA verfügbar: [PWA](https://maskmanager.toastbrot.org/)
 
+Aber: Apple mag es anders zu sein, deshalb geht die Kamera bei iOS nicht, wenn man die Website zum Startbildschirm hinzufügt und dann öffnet.
+
 ### Ne i bims Entwickler
 
 Dann gönn dir folgendes
