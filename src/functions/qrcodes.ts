@@ -6,10 +6,10 @@ import CameraPermission from "../plugins/CameraPermission";
 export const newScan = async (
   videoElement: HTMLVideoElement,
   nativeSettingsRedirectPrompt: (redirectFun: () => any) => any,
-  deviceId?: string
+  deviceDirection?: "environment" | "user"
 ): Promise<{ status: "ok" | "err"; data?: string; err?: string }> => {
   const scan = (
-    deviceId: string,
+    deviceDirection: "environment" | "user",
     videoElement: HTMLVideoElement,
     timeout = 30000
   ): Promise<{ data?: string; err?: string }> => {
@@ -17,8 +17,8 @@ export const newScan = async (
     return new Promise((resolve) => {
       const start = Date.now();
       videoElement.removeAttribute("hidden");
-      qr.decodeFromVideoDevice(
-        deviceId,
+      qr.decodeFromConstraints(
+        { video: { facingMode: deviceDirection } },
         videoElement,
         (result, err, controls) => {
           if (result) {
@@ -64,7 +64,7 @@ export const newScan = async (
       return { status: "err", err: "Nicht erlaubt" };
     }
   } else {
-    const scanner = await scan(deviceId!, videoElement, 15000);
+    const scanner = await scan(deviceDirection!, videoElement, 15000);
     return {
       status: scanner.err ? "err" : "ok",
       data: scanner.data,
